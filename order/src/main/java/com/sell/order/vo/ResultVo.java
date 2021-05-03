@@ -1,4 +1,4 @@
-package com.sell.product.vo;
+package com.sell.order.vo;
 
 import lombok.Data;
 

@@ -1,6 +1,7 @@
-package com.sell.product.utils;
+package com.sell.order.utils;
 
-import com.sell.product.vo.ResultVo;
+
+import com.sell.order.vo.ResultVo;
 
 /**
  * 返回结果
@@ -13,10 +14,10 @@ public class ResultVoUtil {
      * @param data
      * @return
      */
-    public static ResultVo success(Object data) {
+    public static ResultVo success(Object data, String message) {
         ResultVo resultVo = new ResultVo();
         resultVo.setCode(0);
-        resultVo.setMsg("查询数据成功！");
+        resultVo.setMsg(message);
         resultVo.setData(data);
         return resultVo;
     }

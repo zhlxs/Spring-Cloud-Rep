@@ -3,7 +3,7 @@ package com.sell.order.enums;
 import lombok.Getter;
 
 @Getter
-public enum OrderStatus {
+public enum OrderStatusEnum {
     NEW(0, "新订单"),
     FINISHED(1, "完结订单"),
     CANCEL(2, "取消");
@@ -11,7 +11,7 @@ public enum OrderStatus {
     private Integer code;
     private String text;
 
-    OrderStatus(Integer code, String text) {
+    OrderStatusEnum(Integer code, String text) {
         this.code = code;
         this.text = text;
     }
