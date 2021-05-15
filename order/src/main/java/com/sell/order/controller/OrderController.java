@@ -26,33 +26,37 @@ import java.util.Map;
 @RestController
 @RequestMapping("/order")
 @Slf4j
-public class OrderController {
+public class OrderController
+{
 
-    @Autowired
-    private OrderService orderService;
+	@Autowired
+	private OrderService orderService;
 
-    /**
-     * 1. 参数检验
-     * 2. 查询商品信息(调用商品服务)
-     * 3. 计算总价
-     * 4. 扣库存(调用商品服务)
-     * 5. 订单入库
-     */
-    @PostMapping("/createOrder")
-    public ResultVo createOrder(@Valid OrderForm orderForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            log.error("【创建订单】参数不正确，orderForm={}", orderForm);
-            throw new OrderException(ResultCodeEnum.PARAM_ERROR.getCode(), bindingResult.getFieldError().getDefaultMessage());
-        }
-        // orderForm -> orderDTO
-        OrderDTO orderDTO = OrderUtil.convert(orderForm);
-        if (CollectionUtils.isEmpty(orderDTO.getDetails())) {
-            log.error("【创建订单】购物车信息为空");
-            throw new OrderException(ResultCodeEnum.CART_EMPTY);
-        }
-        OrderDTO result = orderService.create(orderDTO);
-        Map<String, String> data = new HashMap<>();
-        data.put("orderId", result.getOrderId());
-        return ResultVoUtil.success(data, "数据保存成功！");
-    }
+	/**
+	 * 1. 参数检验
+	 * 2. 查询商品信息(调用商品服务)
+	 * 3. 计算总价
+	 * 4. 扣库存(调用商品服务)
+	 * 5. 订单入库
+	 */
+	@PostMapping("/createOrder")
+	public ResultVo createOrder(@Valid OrderForm orderForm, BindingResult bindingResult)
+	{
+		if (bindingResult.hasErrors())
+		{
+			log.error("【创建订单】参数不正确，orderForm={}", orderForm);
+			throw new OrderException(ResultCodeEnum.PARAM_ERROR.getCode(), bindingResult.getFieldError().getDefaultMessage());
+		}
+		// orderForm -> orderDTO
+		OrderDTO orderDTO = OrderUtil.convert(orderForm);
+		if (CollectionUtils.isEmpty(orderDTO.getDetails()))
+		{
+			log.error("【创建订单】购物车信息为空");
+			throw new OrderException(ResultCodeEnum.CART_EMPTY);
+		}
+		OrderDTO result = orderService.create(orderDTO);
+		Map<String, String> data = new HashMap<>();
+		data.put("orderId", result.getOrderId());
+		return ResultVoUtil.success(data, "数据保存成功！");
+	}
 }

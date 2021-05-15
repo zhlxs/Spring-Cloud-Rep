@@ -8,19 +8,20 @@ import lombok.Data;
  * @param <T>
  */
 @Data
-public class ResultVo<T> {
-    /**
-     * 错误码
-     */
-    private Integer code;
+public class ResultVo<T>
+{
+	/**
+	 * 错误码
+	 */
+	private Integer code;
 
-    /**
-     * 提示信息
-     */
-    private String msg;
+	/**
+	 * 提示信息
+	 */
+	private String msg;
 
-    /**
-     * 具体的内容
-     */
-    private T data;
+	/**
+	 * 具体的内容
+	 */
+	private T data;
 }

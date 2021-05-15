@@ -5,12 +5,14 @@ import com.sell.order.dto.OrderDTO;
 /**
  * 订单 Service
  */
-public interface OrderService {
+public interface OrderService
+{
 
-    /**
-     * 创建订单
-     * @param orderDTO
-     * @return
-     */
-    OrderDTO create(OrderDTO orderDTO);
+	/**
+	 * 创建订单
+	 *
+	 * @param orderDTO
+	 * @return
+	 */
+	OrderDTO create(OrderDTO orderDTO);
 }
