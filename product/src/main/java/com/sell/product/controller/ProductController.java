@@ -20,47 +20,52 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/product")
-public class ProductController {
+public class ProductController
+{
 
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private CategoryService categoryService;
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private CategoryService categoryService;
 
-    /**
-     * 1.查询所有在架商品
-     * 2.查询类目type列表
-     * 3.查询类目
-     * 4.构造数据
-     *
-     * @return
-     */
-    @GetMapping("/queryUpAllList")
-    public ResultVo<ProductVo> queryUpAllList() {
-        List<ProductInfo> upAll = productService.findUpAll();
-        List<Integer> typeList = upAll.stream().
-                map(ProductInfo::getCategoryType).
-                collect(Collectors.toList());
-        List<ProductCategory> categoryList = categoryService.findByCategoryTypeIn(typeList);
-        List<ProductVo> productVoList = new ArrayList<>();
-        ProductVo vo = null;
-        List<ProductInfoVO> productInfoVOList = null;
-        ProductInfoVO productInfoVO = null;
-        for (ProductCategory item : categoryList) {
-            vo = new ProductVo();
-            vo.setCategoryType(item.getCategoryType());
-            vo.setCategoryName(item.getCategoryName());
-            productInfoVOList = new ArrayList<>();
-            for (ProductInfo info : upAll) {
-                if (info.getCategoryType().equals(item.getCategoryType())) {
-                    productInfoVO = new ProductInfoVO();
-                    BeanUtils.copyProperties(info, productInfoVO);
-                    productInfoVOList.add(productInfoVO);
-                }
-            }
-            vo.setProductInfoVOList(productInfoVOList);
-            productVoList.add(vo);
-        }
-        return ResultVoUtil.success(productVoList);
-    }
+	/**
+	 * 1.查询所有在架商品
+	 * 2.查询类目type列表
+	 * 3.查询类目
+	 * 4.构造数据
+	 *
+	 * @return
+	 */
+	@GetMapping("/queryUpAllList")
+	public ResultVo<ProductVo> queryUpAllList()
+	{
+		List<ProductInfo> upAll = productService.findUpAll();
+		List<Integer> typeList = upAll.stream().
+				map(ProductInfo::getCategoryType).
+				collect(Collectors.toList());
+		List<ProductCategory> categoryList = categoryService.findByCategoryTypeIn(typeList);
+		List<ProductVo> productVoList = new ArrayList<>();
+		ProductVo vo = null;
+		List<ProductInfoVO> productInfoVOList = null;
+		ProductInfoVO productInfoVO = null;
+		for (ProductCategory item : categoryList)
+		{
+			vo = new ProductVo();
+			vo.setCategoryType(item.getCategoryType());
+			vo.setCategoryName(item.getCategoryName());
+			productInfoVOList = new ArrayList<>();
+			for (ProductInfo info : upAll)
+			{
+				if (info.getCategoryType().equals(item.getCategoryType()))
+				{
+					productInfoVO = new ProductInfoVO();
+					BeanUtils.copyProperties(info, productInfoVO);
+					productInfoVOList.add(productInfoVO);
+				}
+			}
+			vo.setProductInfoVOList(productInfoVOList);
+			productVoList.add(vo);
+		}
+		return ResultVoUtil.success(productVoList);
+	}
 }

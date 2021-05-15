@@ -9,13 +9,15 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryService
+{
 
-    @Resource
-    private ProductCategoryRepository productCategoryRepository;
+	@Resource
+	private ProductCategoryRepository productCategoryRepository;
 
-    @Override
-    public List<ProductCategory> findByCategoryTypeIn(List<Integer> typeList) {
-        return productCategoryRepository.findByCategoryTypeIn(typeList);
-    }
+	@Override
+	public List<ProductCategory> findByCategoryTypeIn(List<Integer> typeList)
+	{
+		return productCategoryRepository.findByCategoryTypeIn(typeList);
+	}
 }

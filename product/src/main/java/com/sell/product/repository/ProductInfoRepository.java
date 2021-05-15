@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface ProductInfoRepository extends JpaRepository<ProductInfo, String>
 {
-    /**
-     * 根据状态查询列表
-     *
-     * @param status
-     * @return
-     */
-    List<ProductInfo> findByProductStatus(Integer status);
+	/**
+	 * 根据状态查询列表
+	 *
+	 * @param status
+	 * @return
+	 */
+	List<ProductInfo> findByProductStatus(Integer status);
 }

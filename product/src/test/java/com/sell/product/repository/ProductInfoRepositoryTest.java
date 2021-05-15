@@ -7,17 +7,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
-class ProductInfoRepositoryTest {
+class ProductInfoRepositoryTest
+{
 
-    @Autowired
-    private ProductInfoRepository productInfoRepository;
+	@Autowired
+	private ProductInfoRepository productInfoRepository;
 
-    @Test
-    void findByProductStatus()
-    {
-        List<ProductInfo> list = productInfoRepository.findByProductStatus(0);
-        System.out.println(list.size());
-    }
+	@Test
+	void findByProductStatus()
+	{
+		List<ProductInfo> list = productInfoRepository.findByProductStatus(0);
+		System.out.println(list.size());
+	}
 }

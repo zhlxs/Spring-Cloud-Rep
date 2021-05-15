@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, String>
 {
-    /**
-     * 查询类目列表
-     *
-     * @param typeList
-     * @return
-     */
-    List<ProductCategory> findByCategoryTypeIn(List<Integer> typeList);
+	/**
+	 * 查询类目列表
+	 *
+	 * @param typeList
+	 * @return
+	 */
+	List<ProductCategory> findByCategoryTypeIn(List<Integer> typeList);
 }

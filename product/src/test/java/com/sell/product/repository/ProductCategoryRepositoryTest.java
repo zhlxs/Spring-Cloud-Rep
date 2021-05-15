@@ -8,17 +8,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class ProductCategoryRepositoryTest {
+class ProductCategoryRepositoryTest
+{
 
-    @Autowired
-    private ProductCategoryRepository productCategoryRepository;
+	@Autowired
+	private ProductCategoryRepository productCategoryRepository;
 
-    @Test
-    void findByCategoryTypeIn() {
-        List<ProductCategory> list = productCategoryRepository.findByCategoryTypeIn(Arrays.asList(11, 12));
-        System.out.println(list.size());
-    }
+	@Test
+	void findByCategoryTypeIn()
+	{
+		List<ProductCategory> list = productCategoryRepository.findByCategoryTypeIn(Arrays.asList(11, 12));
+		System.out.println(list.size());
+	}
 }
