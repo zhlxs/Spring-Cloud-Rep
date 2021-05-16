@@ -1,5 +1,6 @@
 package com.sell.product.controller;
 
+import com.sell.product.dto.CartDTO;
 import com.sell.product.entity.ProductCategory;
 import com.sell.product.entity.ProductInfo;
 import com.sell.product.service.CategoryService;
@@ -12,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -68,4 +71,29 @@ public class ProductController
 		}
 		return ResultVoUtil.success(productVoList);
 	}
+
+	/**
+	 * 获取商品列表
+	 *
+	 * @param productIds
+	 * @return
+	 */
+	@PostMapping("/listForOrder")
+	public ResultVo<?> listForOrder(@RequestBody List<String> productIds)
+	{
+		return productService.listForOrder(productIds);
+	}
+
+	/**
+	 * 扣库存
+	 *
+	 * @param cartDTOS
+	 * @return
+	 */
+	@PostMapping("/decreaseStock")
+	public ResultVo<?> decreaseStock(@RequestBody List<CartDTO> cartDTOS)
+	{
+		return productService.decreaseStock(cartDTOS);
+	}
 }
+
