@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boot.mall.dao.product.AdminProductMapper">
+    <resultMap id="BaseResultMap" type="com.boot.mall.entity.product.AdminProduct">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName"/>
+        <result column="PRICE" jdbcType="DECIMAL" property="price"/>
+        <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+        <result column="IMG_URL" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="IMG_NAME" jdbcType="VARCHAR" property="imgName"/>
+        <result column="PRODUCT_CATEGORY" jdbcType="VARCHAR" property="productCategory"/>
+        <result column="PRODUCT_NUM" jdbcType="INTEGER" property="productNum"/>
+        <result column="PRODUCT_UNIT" jdbcType="VARCHAR" property="productUnit"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="PRODUCT_DESC" jdbcType="LONGVARCHAR" property="productDesc"/>
+    </resultMap>
+
+    <select id="selectByExp" resultMap="BaseResultMap" parameterType="com.boot.mall.dto.QueryProductPageDTO">
+        select t.*
+        from admin_product t where 1=1
+        <if test="id != null">
+            AND t.ID = #{id}
+        </if>
+        <if test="productName != null and productName != '' ">
+            AND t.product_name like CONCAT(CONCAT('%', #{productName}), '%');
+        </if>
+    </select>
+</mapper>
