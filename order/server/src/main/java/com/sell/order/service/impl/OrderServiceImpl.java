@@ -8,6 +8,8 @@ import com.sell.order.entity.OrderDetail;
 import com.sell.order.entity.OrderMaster;
 import com.sell.order.enums.OrderStatusEnum;
 import com.sell.order.enums.PayStatusEnum;
+import com.sell.order.enums.ResultEnum;
+import com.sell.order.exception.OrderException;
 import com.sell.order.repository.OrderDetailRepository;
 import com.sell.order.repository.OrderMasterRepository;
 import com.sell.order.service.OrderService;
@@ -16,12 +18,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -80,6 +84,41 @@ public class OrderServiceImpl implements OrderService
 		orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
 		orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
 		orderMasterRepository.save(orderMaster);
+		return orderDTO;
+	}
+
+	@Override
+	public OrderDTO finish(String orderId)
+	{
+		//1. 先查询订单
+		Optional<OrderMaster> orderMasterOptional = orderMasterRepository.findById(orderId);
+		if (!orderMasterOptional.isPresent())
+		{
+			throw new OrderException(ResultEnum.ORDER_NOT_EXIST);
+		}
+
+		//2. 判断订单状态
+		OrderMaster orderMaster = orderMasterOptional.get();
+		if (OrderStatusEnum.NEW.getCode() != orderMaster.getOrderStatus())
+		{
+			throw new OrderException(ResultEnum.ORDER_STATUS_ERROR);
+		}
+
+		//3. 修改订单状态为完结
+		orderMaster.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
+		orderMasterRepository.save(orderMaster);
+
+		//查询订单详情
+		List<OrderDetail> orderDetailList = orderDetailRepository.findByOrderId(orderId);
+		if (CollectionUtils.isEmpty(orderDetailList))
+		{
+			throw new OrderException(ResultEnum.ORDER_DETAIL_NOT_EXIST);
+		}
+
+		OrderDTO orderDTO = new OrderDTO();
+		BeanUtils.copyProperties(orderMaster, orderDTO);
+		orderDTO.setDetails(orderDetailList);
+
 		return orderDTO;
 	}
 }

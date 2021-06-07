@@ -1,6 +1,6 @@
 package com.sell.product.controller;
 
-import com.sell.product.dto.CartDTO;
+import com.sell.common.vo.DecreaseStockInput;
 import com.sell.product.entity.ProductCategory;
 import com.sell.product.entity.ProductInfo;
 import com.sell.product.service.CategoryService;
@@ -12,10 +12,7 @@ import com.sell.product.vo.ResultVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +37,11 @@ public class ProductController
 	 * @return
 	 */
 	@GetMapping("/queryUpAllList")
+	@ResponseBody
 	public ResultVo<ProductVo> queryUpAllList()
 	{
 		List<ProductInfo> upAll = productService.findUpAll();
-		List<Integer> typeList = upAll.stream().
-				map(ProductInfo::getCategoryType).
-				collect(Collectors.toList());
+		List<Integer> typeList = upAll.stream().map(ProductInfo::getCategoryType).collect(Collectors.toList());
 		List<ProductCategory> categoryList = categoryService.findByCategoryTypeIn(typeList);
 		List<ProductVo> productVoList = new ArrayList<>();
 		ProductVo vo = null;
@@ -87,13 +83,13 @@ public class ProductController
 	/**
 	 * 扣库存
 	 *
-	 * @param cartDTOS
+	 * @param decreaseStockInputs
 	 * @return
 	 */
 	@PostMapping("/decreaseStock")
-	public ResultVo<?> decreaseStock(@RequestBody List<CartDTO> cartDTOS)
+	public ResultVo<?> decreaseStock(@RequestBody List<DecreaseStockInput> decreaseStockInputs)
 	{
-		return productService.decreaseStock(cartDTOS);
+		return productService.decreaseStock(decreaseStockInputs);
 	}
 }
 

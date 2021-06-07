@@ -1,6 +1,7 @@
 package com.sell.order.exception;
 
 import com.sell.order.enums.ResultCodeEnum;
+import com.sell.order.enums.ResultEnum;
 
 public class OrderException extends RuntimeException
 {
@@ -17,5 +18,11 @@ public class OrderException extends RuntimeException
 	{
 		super(resultCodeEnum.getText());
 		this.code = resultCodeEnum.getCode();
+	}
+
+	public OrderException(ResultEnum resultEnum)
+	{
+		super(resultEnum.getMessage());
+		this.code = resultEnum.getCode();
 	}
 }

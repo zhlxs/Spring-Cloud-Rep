@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: order
+  cloud:
+    config:
+      label: master
+      name: order
+      profile: dev
+      discovery:
+        service-id: config
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  redis:
+    host: localhost
+    port: 6379
+server:
+  port: 3355

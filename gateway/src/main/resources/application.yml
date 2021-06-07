@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: gateway
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8088
+zuul:
+  routes:
+    test:
+      path: /myProduct/**
+      serviceId: product
+  sensitive-headers:
+#  ignored-patterns:
+#显示路由zuul的端口配置，不配置无法访问 /routes
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      show-details: ALWAYS

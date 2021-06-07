@@ -1,6 +1,6 @@
 package com.sell.product.service;
 
-import com.sell.product.dto.CartDTO;
+import com.sell.common.vo.DecreaseStockInput;
 import com.sell.product.entity.ProductInfo;
 import com.sell.product.vo.ResultVo;
 
@@ -26,8 +26,8 @@ public interface ProductService
 	/**
 	 * 扣除库存
 	 *
-	 * @param cartDTOS
+	 * @param decreaseStockInputs
 	 * @return
 	 */
-	ResultVo<?> decreaseStock(List<CartDTO> cartDTOS);
+	ResultVo<?> decreaseStock(List<DecreaseStockInput> decreaseStockInputs);
 }

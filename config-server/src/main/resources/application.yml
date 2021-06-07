@@ -1,0 +1,19 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/zhlxs/config-repo
+          username: 1358311815@qq.com
+          password: hsl.2018sb
+      label: master
+#          search-paths:
+#          basedir:
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
